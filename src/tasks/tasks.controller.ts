@@ -23,8 +23,8 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  getTasks(@Query() filtersDto: GetTasksFilterDto) {
-    return this.tasksService.getTasks(filtersDto);
+  getTasks(@Query() filtersDto: GetTasksFilterDto, @GetUser() user: User) {
+    return this.tasksService.getTasks(filtersDto, user);
   }
 
   @Post()
