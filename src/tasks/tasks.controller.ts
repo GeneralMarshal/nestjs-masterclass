@@ -17,13 +17,16 @@ import { Task } from './task.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
+import { Logger } from '@nestjs/common';
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
+  private logger = new Logger('Tasks Controller');
   constructor(private tasksService: TasksService) {}
 
   @Get()
   getTasks(@Query() filtersDto: GetTasksFilterDto, @GetUser() user: User) {
+    this.logger.verbose(`User "${user.username}" retreiving all tasks`);
     return this.tasksService.getTasks(filtersDto, user);
   }
 
